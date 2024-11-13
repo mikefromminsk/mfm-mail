@@ -1,5 +1,5 @@
 <?php
-require_once $_SERVER["DOCUMENT_ROOT"] . "/mfm-mail2/utils.php";
+require_once $_SERVER["DOCUMENT_ROOT"] . "/mfm-mail/utils.php";
 
 $subject = get_required(subject);
 $body = get_required(body);
