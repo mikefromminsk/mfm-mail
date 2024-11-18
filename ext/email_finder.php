@@ -2,8 +2,11 @@
 require_once $_SERVER['DOCUMENT_ROOT'] . '/mfm-db/requests.php';
 
 $page = file_get_contents('page2.json');
-
 $page = json_decode($page, true);
+$langs = file_get_contents('langs.json');
+$langs = json_decode($langs, true);
+
+
 
 foreach ($page as &$item) {
     if (isset($item[email])) continue;
@@ -19,7 +22,7 @@ foreach ($page as &$item) {
         'username' => $item[name],
         'email' => $item[email],
         'redirect' => 'https://mytoken.space',
-        'lang' => 'en'
+        'lang' => $langs[$item[location]]
     ]);
     break;
 }
