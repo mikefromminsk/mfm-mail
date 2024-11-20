@@ -36,6 +36,5 @@ function mailSend($subject, $body, $receivers)
 
     $mail->Subject = $subject;
     $mail->Body = $body;
-    $success = $mail->send();
-    return $success;
+    return $mail->send();
 }
