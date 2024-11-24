@@ -1,7 +1,7 @@
 <?php
 require_once $_SERVER["DOCUMENT_ROOT"] . "/mfm-mail/utils.php";
 
-//callLimitSec(60);
+//limitSec(60);
 
 $base_path = $_SERVER["DOCUMENT_ROOT"] . "/mfm-mail/ext/page3.json";
 $page = file_get_contents($base_path);
