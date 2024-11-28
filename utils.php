@@ -35,6 +35,7 @@ function mailSend($subject, $body, $receivers)
         $mail->addAddress($address);
 
     $mail->Subject = $subject;
+    $mail->CharSet = "UTF-8";
     $mail->Body = $body;
     return $mail->send();
 }

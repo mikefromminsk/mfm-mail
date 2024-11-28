@@ -3,6 +3,8 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/mfm-mail/utils.php";
 
 //limitSec(60);
 
+$template = get_required(template);
+
 $base_path = $_SERVER["DOCUMENT_ROOT"] . "/mfm-mail/ext/page3.json";
 $page = file_get_contents($base_path);
 $page = json_decode($page, true);
@@ -13,10 +15,12 @@ $langs = json_decode($langs, true);
 
 foreach ($page as &$item) {
     if (!isset($item[requested]) && $item[email] != null && $item[email] != "-1") {
-        requestEquals("/mfm-mail/templates/test_invite/send.php", [
+        requestEquals("/mfm-mail/send_from_template.php", [
+            template => $template,
+            send_permanently => "1",
             username => $item[title],
             email => $item[email],
-            lang => $langs[$item[localtion]],
+            lang => "ru",
         ]);
 
         $item[requested] = true;

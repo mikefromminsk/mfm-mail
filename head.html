@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Приглашение к тестированию</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -10,53 +11,56 @@
             color: #333;
             line-height: 1.6;
         }
+
         .container {
             max-width: 600px;
             margin: auto;
             background: #fff;
-            padding: 20px;
-            border-radius: 8px;
+            border-radius: 16px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        h1 {
-            color: #444;
-            font-size: 18px;
+
+        .container > * {
+            padding: 20px;
+            padding-bottom: 8px;
+            margin: 0;
         }
+
+        h1 {
+            font-size: 18px;
+            margin: 0;
+        }
+
         a {
             color: #0066cc;
             text-decoration: none;
         }
+
         a.button {
             display: inline-block;
             background-color: #0066cc;
             color: #fff;
             padding: 10px 20px;
             border-radius: 5px;
-            margin-top: 20px;
         }
+
         a.button:hover {
             background-color: #004999;
         }
+
         footer {
             margin-top: 20px;
             font-size: 0.9em;
             color: #888;
         }
+
+        header {
+            border-top-left-radius: 16px;
+            border-top-right-radius: 16px;
+            background: rgb(87, 164, 255);
+            background: linear-gradient(30deg, rgba(87, 164, 255, 1) 0%, rgba(218, 92, 159, 1) 100%);
+            color: white;
+        }
     </style>
 </head>
 <body>
-<div class="container">
-    <p>Dear, beloved, irreplaceable, valuable, unique [USER_NAME],</p>
-    <p>I am delighted to invite you to test our new project at <a href="[LINK]">[SITE_DOMAIN]</a>. Your expert opinion will help make the service more professional.</p>
-    <p>To participate in the testing, please click the button below:</p>
-    <p><a href="[LINK]" class="button">Go to testing</a></p>
-    <p>You can leave your feedback within the application or reply to this email.</p>
-    <p class="subject">Make me hurt. I love pain.</p>
-    <p>Thank you for your support!</p>
-    <p>Sincerely,<br>Mike Haiduk</p>
-    <footer>
-        <p>[SITE_DOMAIN] © 2024. All rights reserved.</p>
-    </footer>
-</div>
-</body>
-</html>
