@@ -8,13 +8,13 @@ $lang = get_required(lang);
 $site_domain = get_string(site_domain, "mytoken.space");
 $send_permanently = get_required(send_permanently);
 
-$template = file_get_contents($_SERVER["DOCUMENT_ROOT"] . "/mfm-mail/templates/$template/$lang.html");
-if (!$template) {
-    $template = file_get_contents($_SERVER["DOCUMENT_ROOT"] . "/mfm-mail/templates/$template/en.html");
+$template_file = file_get_contents($_SERVER["DOCUMENT_ROOT"] . "/mfm-mail/templates/$template/$lang.html");
+if (!$template_file) {
+    $template_file = file_get_contents($_SERVER["DOCUMENT_ROOT"] . "/mfm-mail/templates/$template/en.html");
 }
 
 $subject = "";
-foreach (explode("\n", $template) as $line) {
+foreach (explode("\n", $template_file) as $line) {
     $subject = str_between($line, "class=\"subject\">", "</");
     if ($subject != '')
         break;
@@ -28,10 +28,10 @@ $object_id = trackObject([
     lang => $lang,
 ]);
 
-function createLink($params = [])
+function createLink($params = [], $site_domain = null)
 {
     $params[lang] = get_required(lang);
-    $site_domain = get_string(site_domain);
+    $site_domain = $site_domain ?: get_string(site_domain);
     $link = "https://$site_domain?";
     foreach ($params as $key => $value) {
         $value = urlencode($value);
@@ -44,21 +44,22 @@ function createLink($params = [])
 $vars = [
     "USER_NAME" => $username,
     "SITE_DOMAIN" => $site_domain,
-    "LINK" => createLink([o => $object_id]),
+    "LOGO" => createLink([o => $object_id, email => $email], "$site_domain/mfm-mail/logo.php"),
+    "LINK" => createLink([o => $object_id, email => $email]),
     "TG_LINK" => createLink([o => $object_id, redirect => "https://t.me/mytoken_space_bot"]),
     "UNSUBSCRIBE_LINK" => createLink([o => $object_id, unsubscribe => $email]),
 ];
 
 foreach ($vars as $key => $value) {
-    $template = str_replace("[$key]", $value, $template);
+    $template_file = str_replace("[$key]", $value, $template_file);
 }
 
 $head = file_get_contents($_SERVER["DOCUMENT_ROOT"] . "/mfm-mail/head.html");
-$body = $head . $template;
+$body = $head . $template_file;
 
 
 if ($send_permanently == "1") {
-    trackEvent("email", "send", $object_id);
+    trackEvent("email", "send", $object_id, $email);
     $response[success] = mailSend($subject, $body, $email);
     echo json_encode($response, JSON_PRETTY_PRINT);
 } else {
