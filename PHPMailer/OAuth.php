@@ -82,7 +82,7 @@ class OAuth
      * OAuth constructor.
      *
      * @param array $options Associative array containing
-     *                       `provider`, `userName`, `clientSecret`, `clientId` and `refreshToken` elements
+     *                         `provider`, `userName`, `clientSecret`, `clientId` and `refreshToken` elements
      */
     public function __construct($options)
     {
