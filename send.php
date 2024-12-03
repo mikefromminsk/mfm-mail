@@ -7,4 +7,4 @@ $receivers = get_required(receivers);
 
 $response[success] = mailSend($subject, $body, $receivers);
 
-echo json_encode($response);
+commit($response);

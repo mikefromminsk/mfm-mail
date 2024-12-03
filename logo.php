@@ -8,3 +8,5 @@ trackEvent(email, readed, $object_id, $email);
 
 header("Content-Type: image/png");
 echo file_get_contents($_SERVER["DOCUMENT_ROOT"] . "/mfm-wallet/logo.png");
+
+commit();

@@ -25,7 +25,6 @@ foreach ($page as &$item) {
 
         $item[requested] = true;
         file_put_contents($base_path, json_encode($page, JSON_PRETTY_PRINT));
-        echo json_encode($item, JSON_PRETTY_PRINT);
-        die();
+        commit($item);
     }
 }

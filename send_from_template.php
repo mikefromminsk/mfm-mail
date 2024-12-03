@@ -61,7 +61,7 @@ $body = $head . $template_file;
 if ($send_permanently == "1") {
     trackEvent("email", "send", $object_id, $email);
     $response[success] = mailSend($subject, $body, $email);
-    echo json_encode($response, JSON_PRETTY_PRINT);
+    commit($response);
 } else {
     header("Content-Type: text/html");
     echo $body;
