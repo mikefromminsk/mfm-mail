@@ -17,8 +17,8 @@ foreach ($page as &$item) {
     if (!isset($item[requested]) && $item[email] != null && $item[email] != "-1") {
         requestEquals("/mfm-mail/send_to_email.php", [
             template => $template,
-            send_permanently => "1",
-            username => $item[title],
+            now => "1",
+            name => $item[title],
             email => $item[email],
             lang => "ru",
         ]);
