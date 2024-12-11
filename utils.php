@@ -58,42 +58,32 @@ function mailSendToAddress($from, $to_address, $message)
     return mailSend($from, $link_event[value], $message);
 }
 
-function fillTemplateBody($template, $name, $email, $lang, $params = [])
+function createLink($site_domain, $params = [])
 {
+    $link = $site_domain == "localhost" ? "http://" : "https://";
+    $link .= $site_domain . "?";
+    foreach ($params as $key => $value) {
+        $value = urlencode($value);
+        $link .= "$key=$value&";
+    }
+    $link = substr($link, 0, -1);
+    return $link;
+}
 
+function fillTemplateFromObject($template, $lang, $site_domain, $object_id)
+{
     $template_file = file_get_contents($_SERVER["DOCUMENT_ROOT"] . "/mfm-mail/templates/$template/$lang.html");
     if (!$template_file) {
         $template_file = file_get_contents($_SERVER["DOCUMENT_ROOT"] . "/mfm-mail/templates/$template/en.html");
     }
 
-    $object_id = trackObject([
-        template => $template,
-        name => $name,
-        email => $email,
-        lang => $lang,
-    ]);
+    $params = getObject($object_id);
+    $params[site_domain] = $site_domain;
+    $params[site_link] = createLink($site_domain, [o => $object_id]);
+    $params[logo] = createLink("$site_domain/mfm-mail/logo.php", [o => $object_id]);
+    $params[unsubscribe_link] = createLink("$site_domain/mfm-mail/unsubscribe", [o => $object_id]);
 
-    function createLink($site_domain, $params = [])
-    {
-        $link = "https://$site_domain?";
-        foreach ($params as $key => $value) {
-            $value = urlencode($value);
-            $link .= "$key=$value&";
-        }
-        $link = substr($link, 0, -1);
-        return $link;
-    }
-
-    $site_domain = "mytoken.space";
-    $base_params = [
-        name => $name,
-        site_domain => $site_domain,
-        site_link => createLink($site_domain, [o => $object_id, email => $email, lang => $lang]),
-        logo => createLink("$site_domain/mfm-mail/logo.php", [o => $object_id, email => $email]),
-        unsubscribe_link => createLink($site_domain, [o => $object_id, unsubscribe => $email, lang => $lang]),
-    ];
-
-    foreach (array_merge($base_params, $params) as $key => $value) {
+    foreach ($params as $key => $value) {
         $template_file = str_replace("[" . strtoupper($key) . "]", $value, $template_file);
     }
 
