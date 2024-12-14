@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Unsubscribe</title>
+    <script src="/mfm-wallet/utils/backend.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+        .container {
+            max-width: 400px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Unsubscribed from Newsletter</h2>
+    <h3 id="response"></h3>
+</div>
+<script>
+    post("/mfm-mail/unsubscribe", {o: getParam("o")}, function(response) {
+        document.getElementById('email').value = response
+    })
+</script>
+</body>
+</html>
