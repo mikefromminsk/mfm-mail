@@ -65,7 +65,7 @@ setTimeout(() => {
     //entity-result__title-text t-16
     //entity-result__primary-subtitle t-14 t-black t-normal
     //entity-result__secondary-subtitle t-14 t-normal
-    post("http://localhost/ext/catch.php", {
+    post("http://localhost/ext/catch", {
         html: JSON.stringify(results)
     })
 }, 3000);

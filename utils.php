@@ -3,7 +3,7 @@ require_once $_SERVER["DOCUMENT_ROOT"] . "/mfm-db/utils.php";
 require_once $_SERVER["DOCUMENT_ROOT"] . "/mfm-analytics/utils.php";
 
 spl_autoload_register(function ($class_name) {
-    include $class_name . ".php";
+    include $class_name . "";
 });
 
 use PHPMailer\PHPMailer;
@@ -80,7 +80,7 @@ function fillTemplateFromObject($template, $lang, $site_domain, $object_id)
     $params = getObject($object_id);
     $params[site_domain] = $site_domain;
     $params[site_link] = createLink($site_domain, [o => $object_id]);
-    $params[logo] = createLink("$site_domain/mfm-mail/logo.php", [o => $object_id]);
+    $params[logo] = createLink("$site_domain/mfm-mail/logo", [o => $object_id]);
     $params[unsubscribe_link] = createLink("$site_domain/mfm-mail/unsubscribe", [o => $object_id]);
 
     foreach ($params as $key => $value) {

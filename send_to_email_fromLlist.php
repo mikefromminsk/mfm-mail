@@ -16,7 +16,7 @@ $page = json_decode($page, true);
 
 foreach ($page as &$item) {
     if (!isset($item[requested]) && $item[email] != null && $item[email] != "-1") {
-        requestEquals("/mfm-mail/send_to_email.php", [
+        requestEquals("/mfm-mail/send_to_email", [
             template => $template,
             site_domain => $site_domain,
             now => "1",
