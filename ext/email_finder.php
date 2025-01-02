@@ -21,7 +21,7 @@ foreach ($page as &$item) {
     http_post("/mfm-mail/templates/test_invite/send", [
         'username' => $item[name],
         'email' => $item[email],
-        'redirect' => 'https://mytoken.space',
+        'redirect' => 'https://vavilon.org',
         'lang' => $langs[$item[location]]
     ]);
     break;
