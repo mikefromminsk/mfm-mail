@@ -10,7 +10,7 @@ $langs = json_decode($langs, true);
 
 foreach ($page as &$item) {
     if (isset($item[email])) continue;
-    $response = http_post("https://linkedradar.com/api/lead/contact/find", [
+    $response = post_data("https://linkedradar.com/api/lead/contact/find", [
         'linkedin_profile_uri' => $item[id]
     ], [
         'Authorization' => 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0b2tlbiI6IjNlODc3YjEzNjQ4ZGI1YmJjNTFmOTYyYjQyNzA4YjdlIiwicmVxX3RpbWUiOjE3MzE3NjgwMDUsImV4cCI6MTczNDM2MDAwNX0.HvP_4FSQa3BG5QywsoBqPxlweE_pDDKKN8ITJQBC7_E'
@@ -18,7 +18,7 @@ foreach ($page as &$item) {
     echo json_encode($response, JSON_PRETTY_PRINT);
     $item[email] = $response[data][email];
 
-    http_post("/mfm-mail/templates/test_invite/send", [
+    post_data("/mfm-mail/templates/test_invite/send", [
         'username' => $item[name],
         'email' => $item[email],
         'redirect' => 'https://vavilon.org',
